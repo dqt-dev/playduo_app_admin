@@ -36,3 +36,15 @@
     transform: rotate(360deg);
   }
 }
+
+.spin_wrapper {
+  position: absolute;
+  z-index: 1;
+  width: 100vw;
+  height: 100vh;
+  user-select: none;
+  background-color: rgba(255,255,255,0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

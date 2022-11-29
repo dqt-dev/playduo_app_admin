@@ -1,0 +1,5 @@
+export const REQUEST_USERS = "@USER/REQUEST_USERS";
+
+export const FAILED_USERS = "@USER/FAILED_USERS";
+
+export const SUCCESS_USERS ="@USER/SUCCESS_USERS";
