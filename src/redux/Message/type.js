@@ -1,0 +1,1 @@
+export const SHOW_MESSAGE = "@Loading/SHOW_MESSAGE";

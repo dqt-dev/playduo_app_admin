@@ -19,7 +19,7 @@ const UserManagement = () => {
   useEffect(() => {
     dispatch(getUsers());
   }, []);
-  const { users, isLoading, error } = useSelector(
+  const { users} = useSelector(
     (state) => state.userManagementReducer
   );
 

@@ -1,13 +1,14 @@
 import React, { useEffect } from "react";
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Checkbox, Form, Input } from "antd";
 import { useState } from "react";
 import AuthenService from "../../services/AuthenService";
-import { INFO_LOGIN , USER_TOKEN} from "../../common/SystemConstant/index";
-import {  useNavigate } from "react-router-dom";
+import { INFO_LOGIN, USER_TOKEN } from "../../common/SystemConstant/index";
+import { useNavigate } from "react-router-dom";
 import { getMyInfo } from "./../../redux/UserInfo/action";
 import UserService from "../../services/UserSerice";
 import { useDispatch } from "react-redux";
-import { ls } from '../../utils/ls';
+import { ls } from "../../utils/ls";
+import { showMessageAct } from "./../../redux/Message/action";
 
 function Login() {
   const dispatch = useDispatch();
@@ -36,9 +37,16 @@ function Login() {
   const handleLogin = (e) => {
     // const valid = validate();
     const valid = {
-      valid: true
-    }
+      valid: true,
+    };
     if (valid.valid) {
+      dispatch(
+        showMessageAct({
+          isShow: true,
+          message: "LOGIN SUCCESS",
+          importantLevel: "1",
+        })
+      );
       AuthenService.Login({ username: info.username, password: info.password })
         .then((response) => {
           // set token in local storage
@@ -56,14 +64,16 @@ function Login() {
               if (user.data) {
                 dispatch(getMyInfo(user.data));
               }
+              dispatch(
+                showMessageAct({ isShow: true, message: "LOGIN SUCCESS" })
+              );
             } catch (error) {
               dispatch(getMyInfo(null));
             }
           })();
           navigate("/");
         })
-        .catch((e) => {
-        });
+        .catch((e) => {});
     }
   };
 
@@ -145,20 +155,20 @@ function Login() {
 
   const handleOnChange = (name) => {
     return (e) => {
-    const { value } = e.target;
-    setMessage({
-      ...message,
-      [name]: "",
-    });
-    setInfo({
-      ...info,
-      [name]: value,
-    });
-  }
+      const { value } = e.target;
+      setMessage({
+        ...message,
+        [name]: "",
+      });
+      setInfo({
+        ...info,
+        [name]: value,
+      });
+    };
   };
 
   const onFinishFailed = (errorInfo) => {
-    console.log('Failed:', errorInfo);
+    console.log("Failed:", errorInfo);
   };
   return (
     <Form
@@ -179,11 +189,11 @@ function Login() {
       <Form.Item
         label="Username"
         name="username"
-        onChange={handleOnChange('username')}
+        onChange={handleOnChange("username")}
         rules={[
           {
             required: true,
-            message: 'Please input your username!',
+            message: "Please input your username!",
           },
         ]}
       >
@@ -193,11 +203,11 @@ function Login() {
       <Form.Item
         label="Password"
         name="password"
-        onChange={handleOnChange('password')}
+        onChange={handleOnChange("password")}
         rules={[
           {
             required: true,
-            message: 'Please input your password!',
+            message: "Please input your password!",
           },
         ]}
       >

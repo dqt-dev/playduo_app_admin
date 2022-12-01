@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { PieChartOutlined, UserOutlined } from "@ant-design/icons";
-import { MenuProps, Spin } from "antd";
+import { MenuProps } from "antd";
 import { Layout, Menu } from "antd";
 import { INFO_LOGIN } from "./../../common/SystemConstant/index";
 import { getMyInfo } from "./../../redux/UserInfo/action";
 import { ls } from "../../utils/ls";
+import { Avatar } from "antd";
+
 const { Header, Content, Footer, Sider } = Layout;
 
 type MenuItem = Required<MenuProps>["items"][number];
@@ -51,7 +53,7 @@ const AdminTemplate = ({ children, ...props }) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!userInfo) {
-      setIsLogin(false);
+      // setIsLogin(false);
     }
   }, [userInfo]);
   const handleSignOut = () => {
@@ -80,9 +82,26 @@ const AdminTemplate = ({ children, ...props }) => {
           />
         </Sider>
         <Layout className="site-layout">
-          <Header className="site-layout-background" style={{ padding: 0 }}>
-            <button onClick={handleSignOut}>Logout</button>
-            <Link to={"/login"}>Login</Link>
+          <Header
+            className="site-layout-background"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "end",
+              padding: 10,
+            }}
+          >
+            <Avatar
+              style={{ backgroundColor: "#87d068" }}
+              icon={<UserOutlined />}
+            />
+            <Link
+              style={{ marginLeft: "10px" }}
+              to={"/login"}
+              onClick={handleSignOut}
+            >
+              Logout
+            </Link>
           </Header>
           <Content style={{ margin: "0 16px" }}>
             <div

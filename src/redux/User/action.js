@@ -1,6 +1,7 @@
 import { FAILED_USERS, REQUEST_USERS, SUCCESS_USERS } from "./type";
 import UserService from "./../../services/UserSerice";
 import { loadingAct } from "./../Loading/action";
+import { showMessageAct } from "../Message/action";
 
 export const successUsers = (data) => ({ type: SUCCESS_USERS, payload: data });
 export const failedUser = (err) => ({ type: FAILED_USERS, payload: err });
@@ -19,6 +20,13 @@ export const getUsers = () => {
     } catch (err) {
       dispatch(failedUser(err));
       dispatch(loadingAct(false));
+      dispatch(
+        showMessageAct({
+          isShow: true,
+          message: "FAILED",
+          importantLevel: "3",
+        })
+      );
     }
   };
 };
@@ -30,10 +38,20 @@ export const actDisableUser = (id) => {
       const res = await UserService.disableUser(id);
       if (res.status === 200) {
         dispatch(getUsers());
+        showMessageAct({
+          isShow: true,
+          message: "SUCCESS",
+          importantLevel: "1",
+        });
       }
       dispatch(loadingAct(false));
     } catch (err) {
       dispatch(loadingAct(false));
+      showMessageAct({
+        isShow: true,
+        message: "FAILED",
+        importantLevel: "3",
+      });
     }
   };
 };
@@ -44,10 +62,20 @@ export const actEnableUser = (id) => {
       const res = await UserService.enableUser(id);
       if (res.status === 200) {
         dispatch(getUsers());
+        showMessageAct({
+          isShow: true,
+          message: "SUCCESS",
+          importantLevel: "1",
+        });
       }
       dispatch(loadingAct(false));
     } catch (err) {
       dispatch(loadingAct(false));
+      showMessageAct({
+        isShow: true,
+        message: "FAILED",
+        importantLevel: "3",
+      });
     }
   };
 };
