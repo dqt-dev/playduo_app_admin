@@ -20,10 +20,14 @@ export const getUsers = () => {
     } catch (err) {
       dispatch(failedUser(err));
       dispatch(loadingAct(false));
+      let message = 'FAILED'
+      if (err.message) {
+        message = err.message
+      }
       dispatch(
         showMessageAct({
           isShow: true,
-          message: "FAILED",
+          message: message,
           importantLevel: "3",
         })
       );
@@ -47,11 +51,17 @@ export const actDisableUser = (id) => {
       dispatch(loadingAct(false));
     } catch (err) {
       dispatch(loadingAct(false));
-      showMessageAct({
-        isShow: true,
-        message: "FAILED",
-        importantLevel: "3",
-      });
+      let message = 'FAILED'
+      if (err.message) {
+        message = err.message
+      }
+      dispatch(
+        showMessageAct({
+          isShow: true,
+          message: message,
+          importantLevel: "3",
+        })
+      );
     }
   };
 };
@@ -71,11 +81,17 @@ export const actEnableUser = (id) => {
       dispatch(loadingAct(false));
     } catch (err) {
       dispatch(loadingAct(false));
-      showMessageAct({
-        isShow: true,
-        message: "FAILED",
-        importantLevel: "3",
-      });
+      let message = 'FAILED'
+      if (err.message) {
+        message = err.message
+      }
+      dispatch(
+        showMessageAct({
+          isShow: true,
+          message: message,
+          importantLevel: "3",
+        })
+      );
     }
   };
 };

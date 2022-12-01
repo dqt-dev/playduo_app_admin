@@ -1,7 +1,11 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actDisableUser, actEnableUser, getUsers } from "../../redux/User/action";
-import { Space, Table } from "antd";
+import {
+  actDisableUser,
+  actEnableUser,
+  getUsers,
+} from "../../redux/User/action";
+import { Empty, Space, Table } from "antd";
 import { Button } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { BASE_URL } from "../../common/SystemConstant";
@@ -19,9 +23,7 @@ const UserManagement = () => {
   useEffect(() => {
     dispatch(getUsers());
   }, []);
-  const { users} = useSelector(
-    (state) => state.userManagementReducer
-  );
+  const { users } = useSelector((state) => state.userManagementReducer);
 
   const columns: ColumnsType<DataType> = useMemo(
     () => [
@@ -43,7 +45,7 @@ const UserManagement = () => {
         },
       },
       {
-        title: "Username",
+        title: "Tên đăng nhập",
         dataIndex: "username",
         key: "username",
       },
@@ -53,17 +55,17 @@ const UserManagement = () => {
         key: "email",
       },
       {
-        title: "Phone",
+        title: "Số điện thoại",
         dataIndex: "phone",
         key: "phone",
       },
       {
-        title: "Description",
+        title: "Mô tả",
         dataIndex: "description",
         key: "description",
       },
       {
-        title: "Action",
+        title: "Hành động",
         key: "action",
         render: (_, record) => (
           <Space size="middle">
@@ -87,16 +89,21 @@ const UserManagement = () => {
     []
   );
 
-  const handleDisable = (record) => {
-    dispatch(actDisableUser(record.id))
-  };
-  const handleEnable = (record) => {
-    dispatch(actEnableUser(record.id))
-  };
+  const handleDisable = useCallback((record) => {
+    dispatch(actDisableUser(record.id));
+  }, []);
+  const handleEnable = useCallback((record) => {
+    dispatch(actEnableUser(record.id));
+  }, []);
 
   return (
     <>
-      <Table rowKey={"id"} columns={columns} dataSource={users} />
+      <Table
+        rowKey={"id"}
+        columns={columns}
+        dataSource={users}
+        locale={{ emptyText: <Empty description="Không có dữ liệu" /> }}
+      />
     </>
   );
 };
