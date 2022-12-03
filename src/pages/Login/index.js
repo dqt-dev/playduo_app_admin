@@ -9,7 +9,7 @@ import UserService from "../../services/UserSerice";
 import { useDispatch } from "react-redux";
 import { ls } from "../../utils/ls";
 import { showMessageAct } from "./../../redux/Message/action";
-
+import { loadingAct } from "../../redux/Loading/action";
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -40,17 +40,9 @@ function Login() {
       valid: true,
     };
     if (valid.valid) {
-      dispatch(
-        showMessageAct({
-          isShow: true,
-          message: "LOGIN SUCCESS",
-          importantLevel: "1",
-        })
-      );
+      dispatch(loadingAct(true));
       AuthenService.Login({ username: info.username, password: info.password })
         .then((response) => {
-          // set token in local storage
-
           if (remember) {
             ls.set(INFO_LOGIN, info);
           } else {
@@ -59,21 +51,35 @@ function Login() {
 
           localStorage.setItem(USER_TOKEN, response.data.token);
           (async () => {
-            try {
-              const user = await UserService.getMyInfo();
-              if (user.data) {
-                dispatch(getMyInfo(user.data));
-              }
+            const user = await UserService.getMyInfo();
+            if (user.data) {
+              dispatch(loadingAct(false));
+
+              dispatch(getMyInfo(user.data));
+              navigate("/");
               dispatch(
-                showMessageAct({ isShow: true, message: "LOGIN SUCCESS" })
+                showMessageAct({
+                  isShow: true,
+                  message: "LOGIN SUCCESS",
+                  importantLevel: "1",
+                })
               );
-            } catch (error) {
-              dispatch(getMyInfo(null));
             }
           })();
-          navigate("/");
         })
-        .catch((e) => {});
+        .catch((err) => {
+          dispatch(loadingAct(false));
+          let message = "LOGIN FAILED";
+          localStorage.removeItem(INFO_LOGIN);
+          dispatch(getMyInfo(null));
+          dispatch(
+            showMessageAct({
+              isShow: true,
+              message: message,
+              importantLevel: "3",
+            })
+          );
+        });
     }
   };
 

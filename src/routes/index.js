@@ -1,6 +1,9 @@
 import Login from './../pages/Login/index';
 import Dashboard from './../pages/Dashboard/index';
 import UserManagement from './../pages/UserManagement/index';
+import UserDetail from '../pages/UserDetail';
+import SkillsApprove from "../pages/SkillsApprove";
+
 export const urlLogin = [
     {
         id: 1,
@@ -23,5 +26,15 @@ export const urlAdmin = [
         id: 3,
         component: <UserManagement/>,
         url: '/user-management'
-    }
+    },
+    {
+        id: 4,
+        component: <SkillsApprove/>,
+        url: 'skills-approve'
+    },
+    {
+        id: 3,
+        component: <UserDetail/>,
+        url: '/user/:userId'
+    },
 ]

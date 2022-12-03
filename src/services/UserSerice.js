@@ -35,7 +35,6 @@ const enableUser = (id:string) => {
   return http.put(`Users/${id}/enable`)
 }
 
-
 const UserService = {
   get,
   getMyInfo,

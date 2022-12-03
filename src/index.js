@@ -7,6 +7,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import configStore from './redux/store';
 import { Provider } from 'react-redux';
+import 'react-toastify/dist/ReactToastify.css';
 
 const store = configStore()
 

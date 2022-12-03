@@ -1,0 +1,110 @@
+.main-info
+{
+    height: 90px;
+    width: 1296px;
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+.detail-info
+{
+    height: 845px;
+    width: 324px;
+    border-radius: 10px;
+    background-color: #ffffff;
+}
+
+.container-main-div
+{
+    width: 1296px;
+}
+.detail-skill-info
+{
+    width: 950px;
+}
+
+.card-avatar
+{
+    border-top-left-radius: "18px";
+    border-top-right-radius: "18px";
+}
+.audio-icon-large{
+    position: absolute;
+    right: 3px;
+    top: 250px;
+}
+.div-online-2 {
+    position: absolute;
+    bottom: 12%;
+    left: 80px;
+}
+.skill-info-of-user
+{
+    border-radius: 12px;
+    height: 220px;
+}
+button:hover{
+    box-shadow: 0 0 12px rgba(33,33,33,.3);
+}
+
+.btn-chat{
+    background-image: linear-gradient(#9383ff, #5429ff);
+    border-radius: 28px;
+    height: 56px;
+    width: 200px;
+}
+.btn-order{
+    background-image: linear-gradient(rgb(255 224 0), rgb(255 180 0));
+    border-radius: 28px;
+    height: 56px;
+    width: 200px;
+}
+.skill-info
+{
+    border-radius: 12px;
+}
+.w-16px
+{
+    width: 16px;
+}
+
+.h-16px
+{
+    height: 16px;
+}
+.text-20px{
+    font-size: 20px;
+}
+.rounded-50{
+    border-radius: 50%;
+}
+.category-name-div
+{
+    position: absolute;
+    top: 10%;
+    color:#ffffff;
+}
+
+.fs-10px
+{
+    font-size: 14px;
+}
+.w-24px
+{
+    width: 24px;
+}
+.h-24px{
+    height: 24px;
+}
+.skill-index:hover
+{
+    cursor: pointer;
+    transform: scale(1.08);
+}
+.text-16px
+{
+    font-size: 16px;
+}
+.text-24px
+{
+    font-size: 24px;
+}

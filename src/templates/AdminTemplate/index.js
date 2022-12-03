@@ -42,6 +42,13 @@ const items: MenuItem[] = [
       <UserOutlined />
     </Link>
   ),
+  getItem(
+    "Skills Approve",
+    "/skills-approve",
+    <Link to={"/skills-approve"}>
+      <UserOutlined />
+    </Link>
+  ),
 ];
 
 const AdminTemplate = ({ children, ...props }) => {
@@ -53,7 +60,7 @@ const AdminTemplate = ({ children, ...props }) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!userInfo) {
-      // setIsLogin(false);
+      setIsLogin(false);
     }
   }, [userInfo]);
   const handleSignOut = () => {

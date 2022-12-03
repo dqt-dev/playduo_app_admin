@@ -19,13 +19,13 @@ interface DataType {
   tags: string[];
 }
 
-const UserManagement = () => {
+const SkillsApprove = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch();
+  // const { users } = useSelector((state) => state.SkillsApproveReducer);
   useEffect(() => {
     dispatch(getUsers());
   }, []);
-  const { users } = useSelector((state) => state.userManagementReducer);
 
   const columns: ColumnsType<DataType> = useMemo(
     () => [
@@ -105,11 +105,11 @@ const UserManagement = () => {
       <Table
         rowKey={"id"}
         columns={columns}
-        dataSource={users}
+        dataSource={[]}
         locale={{ emptyText: <Empty description="Không có dữ liệu" /> }}
       />
     </>
   );
 };
 
-export default UserManagement;
+export default SkillsApprove;

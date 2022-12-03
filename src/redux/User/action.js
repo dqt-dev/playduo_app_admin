@@ -15,15 +15,12 @@ export const getUsers = () => {
       const res = await UserService.getUsers();
       if (res.status === 200) {
         dispatch(successUsers(res.data));
-        dispatch(loadingAct(false));
       }
+      dispatch(loadingAct(false));
     } catch (err) {
       dispatch(failedUser(err));
       dispatch(loadingAct(false));
-      let message = 'FAILED'
-      if (err.message) {
-        message = err.message
-      }
+      let message = "Lấy danh sách không thành công!";
       dispatch(
         showMessageAct({
           isShow: true,
@@ -42,19 +39,18 @@ export const actDisableUser = (id) => {
       const res = await UserService.disableUser(id);
       if (res.status === 200) {
         dispatch(getUsers());
-        showMessageAct({
-          isShow: true,
-          message: "SUCCESS",
-          importantLevel: "1",
-        });
+        dispatch(
+          showMessageAct({
+            isShow: true,
+            message: "Vô hiệu hoá thành công!",
+            importantLevel: "1",
+          })
+        );
       }
       dispatch(loadingAct(false));
     } catch (err) {
       dispatch(loadingAct(false));
-      let message = 'FAILED'
-      if (err.message) {
-        message = err.message
-      }
+      let message = "Thất bại!";
       dispatch(
         showMessageAct({
           isShow: true,
@@ -72,19 +68,16 @@ export const actEnableUser = (id) => {
       const res = await UserService.enableUser(id);
       if (res.status === 200) {
         dispatch(getUsers());
-        showMessageAct({
+        dispatch(showMessageAct({
           isShow: true,
-          message: "SUCCESS",
+          message: "Bật thành công!",
           importantLevel: "1",
-        });
+        }));
       }
       dispatch(loadingAct(false));
     } catch (err) {
       dispatch(loadingAct(false));
-      let message = 'FAILED'
-      if (err.message) {
-        message = err.message
-      }
+      let message = "Thất bại";
       dispatch(
         showMessageAct({
           isShow: true,
