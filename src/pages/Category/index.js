@@ -8,6 +8,7 @@ import type { ColumnsType } from "antd/es/table";
 import { BASE_URL } from "../../common/SystemConstant";
 import "./style.css";
 import { createCategory } from "./../../redux/Category/action";
+import { toast } from "react-toastify";
 interface DataType {
   key: string;
   name: string;
@@ -54,7 +55,7 @@ const Category = () => {
             <div
               className="user_info"
               onClick={() => {
-                setCategoryEdit(record)
+                setCategoryEdit(record);
               }}
             >
               <img
@@ -77,20 +78,22 @@ const Category = () => {
         key: "action",
         render: (_, record) => {
           return (
-           <>
-           <button
-            data-bs-toggle="modal"
-            data-bs-target="#examEdit"
-            className="d-none"
-            ref={btnEdit}
-            ></button>
-            <Button
-            type="primary" onClick={() => {
-              btnEdit.current && btnEdit.current.click()
-              setCategoryEdit(record)
-            }}>
-              Chỉnh sửa
-            </Button>
+            <>
+              <button
+                data-bs-toggle="modal"
+                data-bs-target="#examEdit"
+                className="d-none"
+                ref={btnEdit}
+              ></button>
+              <Button
+                type="primary"
+                onClick={() => {
+                  btnEdit.current && btnEdit.current.click();
+                  setCategoryEdit(record);
+                }}
+              >
+                Chỉnh sửa
+              </Button>
             </>
           );
         },
@@ -125,16 +128,26 @@ const Category = () => {
   };
 
   const handleSubmit = (e) => {
-    let data = new FormData();
-    data.append("categoryName", categoryAdd.categoryName);
-    if (typeof categoryAdd.imageUrl === "object") {
-      data.append("imageUrl", categoryAdd.imageUrl);
+    let valid = true;
+    for (let value in categoryAdd) {
+      if (!categoryAdd[value]) {
+        valid = false;
+      }
     }
-    if (typeof categoryAdd.imageSmallUrl === "object") {
-      data.append("imageSmallUrl", categoryAdd.imageSmallUrl);
-    }
-    if (data) {
-      dispatch(createCategory(data), handleSuccess());
+    if (valid) {
+      let data = new FormData();
+      data.append("categoryName", categoryAdd.categoryName);
+      if (typeof categoryAdd.imageUrl === "object") {
+        data.append("imageUrl", categoryAdd.imageUrl);
+      }
+      if (typeof categoryAdd.imageSmallUrl === "object") {
+        data.append("imageSmallUrl", categoryAdd.imageSmallUrl);
+      }
+      if (data) {
+        dispatch(createCategory(data), handleSuccess());
+      }
+    } else {
+      toast.error("Tất cả đều phải nhập!");
     }
   };
 
@@ -147,7 +160,6 @@ const Category = () => {
       imageUrl: null,
     });
   };
-
 
   const handleChangeInputEdit = (e) => {
     const { name, value } = e.target;
@@ -177,18 +189,26 @@ const Category = () => {
   };
 
   const handleSubmitEdit = (e) => {
-    let data = new FormData();
-    console.log(categoryEdit)
-    data.append("categoryName", categoryEdit.categoryName);
-    if (typeof categoryEdit.imageUrlFile === "object") {
-      data.append("imageUrl", categoryEdit.imageUrlFile);
-    }
-    if (typeof categoryEdit.imageSmallUrlFile === "object") {
-      data.append("imageSmallUrl", categoryEdit.imageSmallUrlFile);
-    }
-    if (data) {
-      console.log(data.get('imageUrl'))
-      dispatch(updateCategory(categoryEdit.categoryId, data), handleSuccessEdit());
+    let valid = categoryEdit.categoryName;
+    if (valid) {
+      let data = new FormData();
+      console.log(categoryEdit);
+      data.append("categoryName", categoryEdit.categoryName);
+      if (typeof categoryEdit.imageUrlFile === "object") {
+        data.append("imageUrl", categoryEdit.imageUrlFile);
+      }
+      if (typeof categoryEdit.imageSmallUrlFile === "object") {
+        data.append("imageSmallUrl", categoryEdit.imageSmallUrlFile);
+      }
+      if (data) {
+        console.log(data.get("imageUrl"));
+        dispatch(
+          updateCategory(categoryEdit.categoryId, data),
+          handleSuccessEdit()
+        );
+      }
+    } else {
+      toast.error("Tất cả đều phải nhập!");
     }
   };
 
