@@ -49,6 +49,13 @@ const items: MenuItem[] = [
       <UserOutlined />
     </Link>
   ),
+  getItem(
+    "Category",
+    "/category",
+    <Link to={"/category"}>
+      <UserOutlined />
+    </Link>
+  ),
 ];
 
 const AdminTemplate = ({ children, ...props }) => {

@@ -3,6 +3,7 @@ import Dashboard from './../pages/Dashboard/index';
 import UserManagement from './../pages/UserManagement/index';
 import UserDetail from '../pages/UserDetail';
 import SkillsApprove from "../pages/SkillsApprove";
+import Category from '../pages/Category';
 
 export const urlLogin = [
     {
@@ -31,6 +32,11 @@ export const urlAdmin = [
         id: 4,
         component: <SkillsApprove/>,
         url: 'skills-approve'
+    },
+    {
+        id: 5,
+        component: <Category/>,
+        url: 'category'
     },
     {
         id: 3,

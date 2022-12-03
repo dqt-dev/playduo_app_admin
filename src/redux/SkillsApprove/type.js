@@ -1,0 +1,1 @@
+export const SET_SKILLS_APPROVE = "@Loading/SET_SKILLS_APPROVE";

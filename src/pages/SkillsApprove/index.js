@@ -1,16 +1,15 @@
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  actDisableUser,
-  actEnableUser,
-  getUsers,
-} from "../../redux/User/action";
+  actEnableUserSkill,
+  getSkillsApprove,
+} from "../../redux/SkillsApprove/action";
 import { Empty, Space, Table } from "antd";
 import { Button } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { BASE_URL } from "../../common/SystemConstant";
 import "./style.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 interface DataType {
   key: string;
   name: string;
@@ -20,11 +19,11 @@ interface DataType {
 }
 
 const SkillsApprove = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  // const { users } = useSelector((state) => state.SkillsApproveReducer);
+  const { skills } = useSelector((state) => state.skillsApproveReducer);
   useEffect(() => {
-    dispatch(getUsers());
+    dispatch(getSkillsApprove({ isEnabled: false }));
   }, []);
 
   const columns: ColumnsType<DataType> = useMemo(
@@ -35,33 +34,36 @@ const SkillsApprove = () => {
         key: "avatar",
         render: (text, record) => {
           return (
-            <div className="user_info" onClick={() => {
-              navigate(`/user/${record.id}`)
-            }}>
+            <div
+              className="user_info"
+              onClick={() => {
+                navigate(`/user/${record.id}`);
+              }}
+            >
               <img
                 className="avatar_user"
                 src={BASE_URL + record.avatarUrl}
                 alt={record.nickName}
               />
-              <span className="nick_name">{record.nickName}</span>
+              <span className="nick_name">{record.playerName}</span>
             </div>
           );
         },
       },
       {
-        title: "Tên đăng nhập",
-        dataIndex: "username",
-        key: "username",
+        title: "Tên game",
+        dataIndex: "categoryName",
+        key: "categoryName",
       },
       {
-        title: "Email",
-        dataIndex: "email",
-        key: "email",
+        title: "Giới tính",
+        dataIndex: "gender",
+        key: "gender",
       },
       {
-        title: "Số điện thoại",
-        dataIndex: "phone",
-        key: "phone",
+        title: "Giá",
+        dataIndex: "price",
+        key: "price",
       },
       {
         title: "Mô tả",
@@ -71,41 +73,28 @@ const SkillsApprove = () => {
       {
         title: "Hành động",
         key: "action",
-        render: (_, record) => (
-          <Space size="middle">
-            {!record.isEnabled ? (
-              <Button type="primary" onClick={() => handleEnable(record)}>
-                Enable
-              </Button>
-            ) : (
-              <Button
-                type="primary"
-                danger
-                onClick={() => handleDisable(record)}
-              >
-                Disable
-              </Button>
-            )}
-          </Space>
-        ),
+        render: (_, record) => {
+          return (
+            <Button type="primary" onClick={() => handleEnable(record)}>
+              Enable
+            </Button>
+          );
+        },
       },
     ],
     []
   );
 
-  const handleDisable = useCallback((record) => {
-    dispatch(actDisableUser(record.id));
-  }, []);
   const handleEnable = useCallback((record) => {
-    dispatch(actEnableUser(record.id));
+    dispatch(actEnableUserSkill(record.skillId));
   }, []);
 
   return (
     <>
       <Table
-        rowKey={"id"}
+        rowKey={"skillId"}
         columns={columns}
-        dataSource={[]}
+        dataSource={skills}
         locale={{ emptyText: <Empty description="Không có dữ liệu" /> }}
       />
     </>
