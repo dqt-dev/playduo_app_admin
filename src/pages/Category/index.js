@@ -192,7 +192,6 @@ const Category = () => {
     let valid = categoryEdit.categoryName;
     if (valid) {
       let data = new FormData();
-      console.log(categoryEdit);
       data.append("categoryName", categoryEdit.categoryName);
       if (typeof categoryEdit.imageUrlFile === "object") {
         data.append("imageUrl", categoryEdit.imageUrlFile);
@@ -201,7 +200,6 @@ const Category = () => {
         data.append("imageSmallUrl", categoryEdit.imageSmallUrlFile);
       }
       if (data) {
-        console.log(data.get("imageUrl"));
         dispatch(
           updateCategory(categoryEdit.categoryId, data),
           handleSuccessEdit()
