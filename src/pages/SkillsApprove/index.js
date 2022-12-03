@@ -37,7 +37,7 @@ const SkillsApprove = () => {
             <div
               className="user_info"
               onClick={() => {
-                navigate(`/user/${record.id}`);
+                navigate(`/user/${record.userId}`);
               }}
             >
               <img
