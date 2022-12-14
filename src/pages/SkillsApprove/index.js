@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  actDisableUserSkill,
   actEnableUserSkill,
   getSkillsApprove,
 } from "../../redux/SkillsApprove/action";
@@ -23,7 +24,7 @@ const SkillsApprove = () => {
   const dispatch = useDispatch();
   const { skills } = useSelector((state) => state.skillsApproveReducer);
   useEffect(() => {
-    dispatch(getSkillsApprove({ isEnabled: false }));
+    dispatch(getSkillsApprove({}));
   }, []);
 
   const columns: ColumnsType<DataType> = useMemo(
@@ -56,14 +57,14 @@ const SkillsApprove = () => {
         key: "categoryName",
       },
       {
-        title: "Giới tính",
-        dataIndex: "gender",
-        key: "gender",
-      },
-      {
         title: "Giá",
         dataIndex: "price",
         key: "price",
+      },
+      {
+        title: "Số đơn đã nhận",
+        dataIndex: "total",
+        key: "total",
       },
       {
         title: "Mô tả",
@@ -73,13 +74,23 @@ const SkillsApprove = () => {
       {
         title: "Hành động",
         key: "action",
-        render: (_, record) => {
-          return (
-            <Button type="primary" onClick={() => handleEnable(record)}>
-              Enable
-            </Button>
-          );
-        },
+        render: (_, record) => (
+          <Space size="middle">
+            {!record.isEnabled ? (
+              <Button type="primary" onClick={() => handleEnable(record)}>
+                Enable
+              </Button>
+            ) : (
+              <Button
+                type="primary"
+                danger
+                onClick={() => handleDisable(record)}
+              >
+                Disable
+              </Button>
+            )}
+          </Space>
+        ),
       },
     ],
     []
@@ -89,6 +100,10 @@ const SkillsApprove = () => {
     dispatch(actEnableUserSkill(record.skillId));
   }, []);
 
+  const handleDisable = useCallback((record) => {
+    dispatch(actDisableUserSkill(record.skillId));
+  }, []);
+
   return (
     <>
       <Table
@@ -96,6 +111,7 @@ const SkillsApprove = () => {
         columns={columns}
         dataSource={skills}
         locale={{ emptyText: <Empty description="Không có dữ liệu" /> }}
+        pagination={{ pageSize: 8 }}
       />
     </>
   );

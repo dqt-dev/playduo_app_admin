@@ -54,6 +54,12 @@ const UserManagement = () => {
         key: "username",
       },
       {
+        title: "Giới tính",
+        dataIndex: "gender",
+        key: "gender",
+        render : (gender) => gender  ? "Nam" : "Nữ"
+      },
+      {
         title: "Email",
         dataIndex: "email",
         key: "email",
@@ -62,11 +68,6 @@ const UserManagement = () => {
         title: "Số điện thoại",
         dataIndex: "phone",
         key: "phone",
-      },
-      {
-        title: "Mô tả",
-        dataIndex: "description",
-        key: "description",
       },
       {
         title: "Hành động",
@@ -107,6 +108,7 @@ const UserManagement = () => {
         columns={columns}
         dataSource={users}
         locale={{ emptyText: <Empty description="Không có dữ liệu" /> }}
+        pagination={{ pageSize: 8 }}
       />
     </>
   );

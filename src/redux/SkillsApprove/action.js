@@ -34,11 +34,11 @@ export const actEnableUserSkill = (skillId) => {
     try {
       const res = await SkillService.enableUserSkill(skillId);
       if (res.status === 200) {
-        dispatch(getSkillsApprove({ isEnabled: false }));
+        dispatch(getSkillsApprove({}));
         dispatch(
           showMessageAct({
             isShow: true,
-            message: "Bật thành công!",
+            message: "Kích hoạt kỹ năng thành công!",
             importantLevel: "1",
           })
         );
@@ -46,7 +46,37 @@ export const actEnableUserSkill = (skillId) => {
       dispatch(loadingAct(false));
     } catch (err) {
       dispatch(loadingAct(false));
-      let message = "Thất bại";
+      let message = "Có lỗi xảy ra";
+      dispatch(
+        showMessageAct({
+          isShow: true,
+          message: message,
+          importantLevel: "3",
+        })
+      );
+    }
+  };
+};
+
+export const actDisableUserSkill = (skillId) => {
+  return async (dispatch) => {
+    dispatch(loadingAct(true));
+    try {
+      const res = await SkillService.disableUserSkill(skillId);
+      if (res.status === 200) {
+        dispatch(getSkillsApprove({}));
+        dispatch(
+          showMessageAct({
+            isShow: true,
+            message: "Vô hiệu hóa kỹ năng thành công!",
+            importantLevel: "1",
+          })
+        );
+      }
+      dispatch(loadingAct(false));
+    } catch (err) {
+      dispatch(loadingAct(false));
+      let message = "Có lỗi xảy ra";
       dispatch(
         showMessageAct({
           isShow: true,

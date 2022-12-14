@@ -26,12 +26,12 @@ const ModalEdit = forwardRef(({
         <div className="modal-dialog">
           <div className="modal-content">
             <div className="text-center text-24px pt-3 fw-bold pb-2">
-              {"Chỉnh sửa kỹ năng"}
+              {"Cập nhật danh mục game"}
             </div>
             <div className="container-fluid mt-2">
               <div className="row mb-3">
                 <div className="col-3">
-                  <label>Tên kỹ năng:</label>
+                  <label>Tên trò chơi:</label>
                 </div>
                 <div className="col-9">
                   <input
@@ -44,7 +44,7 @@ const ModalEdit = forwardRef(({
               </div>
               <div className="row mb-3">
                 <div className="col-3">
-                  <label>Hình ảnh:</label>
+                  <label>Hình ảnh chính:</label>
                 </div>
                 <div className="col-9">
                   <img src={BASE_URL + data.imageUrl} alt="" className="img_custom"/>
@@ -60,7 +60,7 @@ const ModalEdit = forwardRef(({
               </div>
               <div className="row mb-3">
                 <div className="col-3">
-                  <label>Hình ảnh nhỏ:</label>
+                  <label>Hình ảnh mô tả khác:</label>
                 </div>
                 <div className="col-9">
                   <img src={BASE_URL + data.imageSmallUrl} alt="" className="img_custom" />

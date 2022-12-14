@@ -69,7 +69,7 @@ const Category = () => {
         },
       },
       {
-        title: "Tên kỹ năng",
+        title: "Tên danh mục game",
         dataIndex: "categoryName",
         key: "categoryName",
       },
@@ -147,7 +147,7 @@ const Category = () => {
         dispatch(createCategory(data), handleSuccess());
       }
     } else {
-      toast.error("Tất cả đều phải nhập!");
+      toast.error("Không được để trống các trường!");
     }
   };
 
@@ -206,7 +206,7 @@ const Category = () => {
         );
       }
     } else {
-      toast.error("Tất cả đều phải nhập!");
+      toast.error("Không được để trống các trường!");
     }
   };
 
@@ -228,7 +228,7 @@ const Category = () => {
         data-bs-toggle="modal"
         data-bs-target="#exampleModalSkill"
       >
-        Add New
+        Thêm mới danh mục
       </button>
       <ModelSkill
         data={categoryAdd}
@@ -254,6 +254,7 @@ const Category = () => {
         rowKey={"categoryId"}
         columns={columns}
         dataSource={category}
+        pagination={{ pageSize: 8 }}
         locale={{ emptyText: <Empty description="Không có dữ liệu" /> }}
       />
     </>

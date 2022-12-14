@@ -133,7 +133,7 @@ function Login() {
       }
       const regexSpecialChar = /[[!@#$%^&*(),.?":{}|<>]/;
       if (!validateRegex(regexSpecialChar, info.password)) {
-        password = `Phải chứa ít nhất 1 ký tự đặc biệc!`;
+        password = `Phải chứa ít nhất 1 ký tự đặc biệt!`;
         return { valid, password };
       }
     }

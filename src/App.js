@@ -26,7 +26,7 @@ function App() {
           ? "warning"
           : "error"
       ](messageShow, {
-        position: toast.POSITION.TOP_RIGHT,
+        position: toast.POSITION.TOP_CENTER,
       });
 
       dispatch(showMessageAct({ isShow: false, message: "" }));

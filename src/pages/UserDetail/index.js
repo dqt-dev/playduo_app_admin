@@ -2,7 +2,7 @@ import React from 'react'
 import './style.css';
 import { getAudioDurationInSeconds } from "@remotion/media-utils";
 import { AiOutlineInbox } from 'react-icons/ai';
-import {getAllSkills, actDisableUserSkill,actEnableUserSkill, getGetUserDetail} from "../../redux/UserDetail/action"
+import { getAllSkills, actDisableUserSkill, actEnableUserSkill, getGetUserDetail } from "../../redux/UserDetail/action"
 
 import star from '../../assets/images/star.png'
 import coin from '../../assets/images/coin.png'
@@ -22,7 +22,7 @@ import { useSelector } from 'react-redux';
 function UserDetail() {
 
     const dispatch = useDispatch();
-    const {userDetail:user, skills}  = useSelector(state => state.userDetailReducer)
+    const { userDetail: user, skills } = useSelector(state => state.userDetailReducer)
     console.log(user)
 
     const reviewTemplate = {
@@ -111,19 +111,19 @@ function UserDetail() {
         <>
             <div className='container mt-3' style={{ position: "relative" }}>
                 <div className='card main-info'>
-                    <div className="mb-3 d-flex" style={{  height: "70px" }}>
+                    <div className="mb-3 d-flex" style={{ height: "70px" }}>
 
-                            <div className="ps-4">
-                                <img src={BASE_URL + user?.avatarUrl} style={{ width: "72px" , height: "72px", borderRadius: "50%" }} className="mt-2" alt="..." />
-                                {user?.status ? <div className="div-online-2" style={{ background: "#31a24c", width: "13px", height: "13px", borderRadius: "50%" }}></div> :
-                                    <div className="div-online-2" style={{ background: "red", width: "13px", height: "13px", borderRadius: "50%" }}></div>}
+                        <div className="ps-4">
+                            <img src={BASE_URL + user?.avatarUrl} style={{ width: "72px", height: "72px", borderRadius: "50%" }} className="mt-2" alt="..." />
+                            {user?.status ? <div className="div-online-2" style={{ background: "#31a24c", width: "13px", height: "13px", borderRadius: "50%" }}></div> :
+                                <div className="div-online-2" style={{ background: "red", width: "13px", height: "13px", borderRadius: "50%" }}></div>}
+                        </div>
+                        <div className="pt-2 ps-3">
+                            <div className="text-body">
+                                <p className="card-text text-start mt-2 mb-1 fw-bold">{user?.nickName}</p>
+                                <p className="card-text text-start fw-bold ">ID: {user?.id}</p>
                             </div>
-                            <div className="pt-2 ps-3">
-                                <div className="text-body">
-                                    <p className="card-text text-start mt-2 mb-1 fw-bold">{user?.nickName}</p>
-                                    <p className="card-text text-start fw-bold ">ID: {user?.id}</p>
-                                </div>
-                            </div>
+                        </div>
 
                     </div>
                 </div>
@@ -140,21 +140,21 @@ function UserDetail() {
                         </div>
                     </div>
                     <div className='detail-skill-info ms-3'>
-                        <div className="d-flex flex-row" >
+                        <div className="d-flex flex-wrap">
                             {skills?.map((skill) => {
                                 if (skill.skillId == skillId)
                                     return (
-                                        <div onClick={() => {setCurrentSkill(skill); changeSkill(skill.skillId); myFunction(currentSkill?.audioUrl) }} className="text-center me-4 skill-index" key={skill.skillId} style={{ position: "relative", height: "48px", width: "124px" }}>
+                                        <div onClick={() => { setCurrentSkill(skill); changeSkill(skill.skillId); myFunction(currentSkill?.audioUrl) }} className="text-center me-4 skill-index mb-3" key={skill.skillId} style={{ position: "relative", height: "48px", width: "124px" }}>
                                             <div style={{ border: "solid #1890ff", width: "130px", borderRadius: "10px" }}>
-                                                <img src={BASE_URL + skill.imageSmallUrl} style={{ height: "48px", width: "124px" }} alt=""/>
-                                                <div className='category-name-div fw-bold fs-10px '>{skill?.categoryName}</div>
+                                                <img src={BASE_URL + skill.imageSmallUrl} style={{ height: "48px", width: "124px" }} />
+                                                <div className='category-name-div fw-bold fs-10px ms-1'>{skill.categoryName}</div>
                                             </div>
                                         </div>
                                     )
                                 return (
-                                    <div onClick={() => {setCurrentSkill(skill); changeSkill(skill.skillId); myFunction(currentSkill?.audioUrl) }} className="text-center me-4 mt-1 skill-index" key={skill.skillId} style={{ position: "relative", height: "48px", width: "124px" }}>
-                                        <img src={BASE_URL + skill.imageSmallUrl} style={{ height: "48px", width: "124px" }}  alt=""/>
-                                        <div className='category-name-div fw-bold fs-10px'>{skill?.categoryName}</div>
+                                    <div onClick={() => { setCurrentSkill(skill); changeSkill(skill.skillId); myFunction(currentSkill?.audioUrl) }} className="text-center me-4 mt-1 skill-index mb-3" key={skill.skillId} style={{ position: "relative", height: "48px", width: "124px" }}>
+                                        <img src={BASE_URL + skill.imageSmallUrl} style={{ height: "48px", width: "124px" }} />
+                                        <div className='category-name-div fw-bold fs-10px'>{skill.categoryName}</div>
                                     </div>
                                 )
                             })}
@@ -162,12 +162,12 @@ function UserDetail() {
                         <div className="card skill-info-of-user mt-3">
                             <div className="text-body ms-2">
                                 <p className="card-text text-start mt-2 mb-1 fw-bold fs-2">{currentSkill?.categoryName}</p>
-                                <p className="d-flex align-items-center mb-1 card-text fw-bold fs-4" >{currentSkill?.price}<img style={{ height: "24px", width: "24px" }} src={coin} alt=""/>/ Trận</p>
-                                <p className="d-flex align-items-center mb-2 card-text fw-bold fs-4" >Đánh giá:<img style={{ height: "20px", width: "20px" }} src={star} className="ms-2 me-2" alt=""/> {currentSkill?.rating}  |  Đã phục vụ: {currentSkill?.total}</p>
-                               {!currentSkill?.isEnabled ? <button type="button" className="btn btn-lg btn-order ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={handleEnable}>Enable</button> :
-                                <button type="button"  className="btn btn-lg btn-chat ms-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
-                                onClick={handleDisable}
-                                >Disable</button> }
+                                <p className="d-flex align-items-center mb-1 card-text fw-bold fs-4" >{currentSkill?.price}<img style={{ height: "24px", width: "24px" }} src={coin} alt="" />/ Trận</p>
+                                <p className="d-flex align-items-center mb-2 card-text fw-bold fs-4" >Đánh giá:<img style={{ height: "20px", width: "20px" }} src={star} className="ms-2 me-2" alt="" /> {currentSkill?.rating}  |  Đã phục vụ: {currentSkill?.total}</p>
+                                {!currentSkill?.isEnabled ? <button type="button" className="btn btn-lg btn-order ms-2" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={handleEnable}>Enable</button> :
+                                    <button type="button" className="btn btn-lg btn-chat ms-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample"
+                                        onClick={handleDisable}
+                                    >Disable</button>}
                             </div>
                         </div>
                         <div className="card skill-info mt-3">
@@ -180,7 +180,7 @@ function UserDetail() {
                                     <div>{Math.ceil(duration)}'</div>
                                 </div>
                                 <div>
-                                    <img className="mt-3" src={BASE_URL + currentSkill?.imageDetailUrl} style={{ height: "190px", width: "338px" }} alt=""/>
+                                    <img className="mt-3" src={BASE_URL + currentSkill?.imageDetailUrl} style={{ height: "190px", width: "338px" }} alt="" />
                                 </div>
                             </div>
                             <div className='pb-3'>
@@ -197,7 +197,7 @@ function UserDetail() {
                                         <div key={index} className="d-flex items-center justify-content-between mt-3">
                                             <div className="text-20px font-bold text-#333333 ms-3">
                                                 <div className="d-flex">
-                                                    <img className="w-44px h-44px rounded-50 mt-1" src={BASE_URL + review.avatarUrl} style={{ height: "44px" }} alt=""/>
+                                                    <img className="w-44px h-44px rounded-50 mt-1" src={BASE_URL + review.avatarUrl} style={{ height: "44px" }} alt="" />
                                                     <div className='flex ms-2'>
                                                         <div className="d-flex items-center justify-content-between" style={{ width: "870px" }}>
                                                             <div className=""> {review.nickName}</div>

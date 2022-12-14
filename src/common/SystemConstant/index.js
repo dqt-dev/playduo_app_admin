@@ -1,6 +1,6 @@
-export const BASE_API = "https://4e42-113-171-171-126.ngrok.io/api/";
+export const BASE_API = "https://localhost:7207/api/";
 
-export const BASE_URL = "https://4e42-113-171-171-126.ngrok.io";
+export const BASE_URL = "https://localhost:7207/";
 
 export const USER_TOKEN = "user-token";
 

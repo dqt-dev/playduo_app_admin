@@ -5,11 +5,11 @@ const getAll = data => {
   const getSkillById = skillId => {
     return http.get(`Skills/${skillId}`);
   };
-  const disableUserSkill = userId => {
-    return http.put(`/Skills/${userId}/disable`, {});
+  const disableUserSkill = skillId => {
+    return http.put(`/Skills/${skillId}/disable`, {});
   };
-  const enableUserSkill = userId => {
-    return http.put(`/Skills/${userId}/enable`, {});
+  const enableUserSkill = skillId => {
+    return http.put(`/Skills/${skillId}/enable`, {});
   };
 const SkillService = {
   getAll,

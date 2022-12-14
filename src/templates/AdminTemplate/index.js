@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
-import { PieChartOutlined, UserOutlined } from "@ant-design/icons";
-import { MenuProps } from "antd";
+import { PieChartOutlined, UserOutlined , CalendarOutlined } from "@ant-design/icons";
+import { Image, MenuProps } from "antd";
 import { Layout, Menu } from "antd";
 import { INFO_LOGIN } from "./../../common/SystemConstant/index";
 import { getMyInfo } from "./../../redux/UserInfo/action";
 import { ls } from "../../utils/ls";
 import { Avatar } from "antd";
+import logo from '../../logo.gif';
+import Title from "antd/es/typography/Title";
+import {FaGamepad} from 'react-icons/fa';
 
 const { Header, Content, Footer, Sider } = Layout;
 
@@ -29,31 +32,31 @@ function getItem(
 
 const items: MenuItem[] = [
   getItem(
-    "Dashboard",
+    "Trang chủ",
     "/dashboard",
     <Link to={"/dashboard"}>
       <PieChartOutlined />
     </Link>
   ),
   getItem(
-    "User",
+    "Quản lý người dùng",
     "/user-management",
     <Link to={"/user-management"}>
       <UserOutlined />
     </Link>
   ),
   getItem(
-    "Skills Approve",
+    "Quản lý kỹ năng",
     "/skills-approve",
     <Link to={"/skills-approve"}>
-      <UserOutlined />
+      <FaGamepad />
     </Link>
   ),
   getItem(
-    "Category",
+    "Quản lý danh mục",
     "/category",
     <Link to={"/category"}>
-      <UserOutlined />
+      <CalendarOutlined />
     </Link>
   ),
 ];
@@ -82,29 +85,23 @@ const AdminTemplate = ({ children, ...props }) => {
   return isLogin ? (
     <>
       <Layout style={{ minHeight: "100vh" }}>
-        <Sider
-          collapsible
-          collapsed={collapsed}
-          onCollapse={(value) => setCollapsed(value)}
+        <Header
+          className=" d-flex justify-content-between"
+          style={{
+            alignItems: "center",
+            padding: 10,
+          }}
         >
-          <div className="logo" />
-          <Menu
-            theme="dark"
-            selectedKeys={[location.pathname]}
-            mode="inline"
-            items={items}
+          <div className="d-flex">
+          <Image
+            width={40}
+            src={logo}
+            style= {{marginLeft : "10px"}}
           />
-        </Sider>
-        <Layout className="site-layout">
-          <Header
-            className="site-layout-background"
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "end",
-              padding: 10,
-            }}
-          >
+          <Title level={4} style= {{color: "white",marginTop : "20px", marginLeft: "15px"}} >YOYO</Title>
+          </div>
+          
+          <div>
             <Avatar
               style={{ backgroundColor: "#87d068" }}
               icon={<UserOutlined />}
@@ -116,20 +113,36 @@ const AdminTemplate = ({ children, ...props }) => {
             >
               Logout
             </Link>
-          </Header>
-          <Content style={{ margin: "0 16px" }}>
+          </div>
+        </Header>
+        <Layout className="site-layout">
+          <Sider
+            collapsible
+            collapsed={collapsed}
+            onCollapse={(value) => setCollapsed(value)}
+          >
+            <div className="logo" />
+            <Menu
+              theme="dark"
+              selectedKeys={[location.pathname]}
+              mode="inline"
+              items={items}
+            />
+          </Sider>
+          <Content >
             <div
-              className="site-layout-background"
-              style={{ padding: 24, minHeight: 360 }}
+              className="site-layout-background ms-2 pt-2 ps-4 pe-4"
+              style={{ minHeight: 360 }}
             >
               {children}
             </div>
           </Content>
-          <Footer style={{ textAlign: "center" }}>
-            Ant Design ©2018 Created by Ant UED
-          </Footer>
         </Layout>
+        <Footer style={{ textAlign: "center", marginLeft: "200px" }}>
+          Ant Design ©2018 Created by Ant UED
+        </Footer>
       </Layout>
+
     </>
   ) : (
     <Navigate to={"/login"} />
