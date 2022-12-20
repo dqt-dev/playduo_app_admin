@@ -1,9 +1,8 @@
-import {
-  SET_SKILLS_APPROVE
-} from "./type";
+import { SET_SKILLS_APPROVE, SET_SKILLS_UPDATE } from "./type";
 
 const initialState = {
   skills: null,
+  skillsUpdate: null
 };
 
 export const skillsApproveReducer = (state = initialState, action) => {
@@ -13,6 +12,11 @@ export const skillsApproveReducer = (state = initialState, action) => {
       return {
         ...state,
         skills: payload,
+      };
+    case SET_SKILLS_UPDATE:
+      return {
+        ...state,
+        skillsUpdate: payload,
       };
     default:
       return state;

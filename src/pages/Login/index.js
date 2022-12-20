@@ -57,7 +57,7 @@ function Login() {
               dispatch(
                 showMessageAct({
                   isShow: true,
-                  message: "LOGIN SUCCESS",
+                  message: "Đăng nhập thành công!",
                   importantLevel: "1",
                 })
               );
@@ -66,7 +66,7 @@ function Login() {
         })
         .catch((err) => {
           dispatch(loadingAct(false));
-          let message = "LOGIN FAILED";
+          let message = "Đăng nhập thất bại!";
           localStorage.removeItem(INFO_LOGIN);
           dispatch(getMyInfo(null));
           dispatch(

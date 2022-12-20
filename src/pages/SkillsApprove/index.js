@@ -1,9 +1,11 @@
 import React, { useCallback, useEffect, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  actAcceptUserSkill,
   actDisableUserSkill,
   actEnableUserSkill,
   getSkillsApprove,
+  getSkillsUpdate,
 } from "../../redux/SkillsApprove/action";
 import { Empty, Space, Table } from "antd";
 import { Button } from "antd";
@@ -22,9 +24,13 @@ interface DataType {
 const SkillsApprove = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { skills } = useSelector((state) => state.skillsApproveReducer);
+  const {skills, skillsUpdate} = useSelector((state) => state.skillsApproveReducer);
+  // const skillsUpdate  = useSelector((state) => state.skillsApproveReducer);
+  const skillTotal = skills?.concat(skillsUpdate)
+
   useEffect(() => {
     dispatch(getSkillsApprove({}));
+    dispatch(getSkillsUpdate());
   }, []);
 
   const columns: ColumnsType<DataType> = useMemo(
@@ -80,7 +86,13 @@ const SkillsApprove = () => {
               <Button type="primary" onClick={() => handleEnable(record)}>
                 Enable
               </Button>
-            ) : (
+            ) :
+            record.isEnabled && record.isUpdated? (
+              <Button type="primary" onClick={() => handleAccept(record)}>
+                Kích hoạt
+              </Button>
+            )
+            : (
               <Button
                 type="primary"
                 danger
@@ -100,6 +112,10 @@ const SkillsApprove = () => {
     dispatch(actEnableUserSkill(record.skillId));
   }, []);
 
+  const handleAccept = useCallback((record) => {
+    dispatch(actAcceptUserSkill(record.skillId));
+  }, []);
+
   const handleDisable = useCallback((record) => {
     dispatch(actDisableUserSkill(record.skillId));
   }, []);
@@ -109,7 +125,7 @@ const SkillsApprove = () => {
       <Table
         rowKey={"skillId"}
         columns={columns}
-        dataSource={skills}
+        dataSource={skillTotal}
         locale={{ emptyText: <Empty description="Không có dữ liệu" /> }}
         pagination={{ pageSize: 8 }}
       />
